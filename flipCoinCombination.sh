@@ -210,3 +210,70 @@ dictionary2[THH]="$thhpercentage"
 dictionary2[THT]="$thtpercentage"
 dictionary2[TTH]="$tthpercentage"
 dictionary2[TTT]="$tttpercentage"
+
+# sorting singlet
+sortedsinglet=($(printf '%s\n' "${dictionary[@]}" | sort -n ))
+echo "sorted singlet : ${sortedsinglet[@]}"
+
+# display winner
+maxsinglet=${dictionary[H]}
+maxsinglettkey=H
+
+for k in "${!dictionary[@]}"
+do
+	if [[ "$maxsinglet" -le "${dictionary[$k]}" ]]
+	then
+		maxsinglet="${dictionary[$k]}"
+		maxsingletkey="$k"
+	elif [[ "$maxsinglet" -eq "${dictionary[$k]}" ]]
+        then
+                maxsingletkey="$maxsingletkey + $k"
+        fi
+done
+echo "WINNER for SINGLET Combination is $maxsingletkey who won $maxsinglet times."
+echo "================================================="
+
+
+# sorting doublet
+sorteddoublet=($(printf '%s\n' "${dictionary1[@]}" | sort -n ))
+echo "sorted doublet : ${sorteddoublet[@]}"
+
+# display winner
+maxdoublet=${dictionary1[TT]}
+maxdoubletkey=TT
+
+for k in "${!dictionary1[@]}"
+do
+	if [[ "$maxdoublet" -lt "${dictionary1[$k]}" ]]
+	then
+		maxdoublet="${dictionary1[$k]}"
+		maxdoubletkey="$k"
+	elif [[ "$maxdoublet" -eq "${dictionary1[$k]}" ]]
+        then
+                maxdoubletkey="$maxdoubletkey + $k"
+        fi
+done
+echo "WINNER for DOUBLET Combination is $maxdoubletkey who won $maxdoublet times."
+echo "================================================="
+
+# sorting triplet
+sortedtriplet=($(printf '%s\n' "${dictionary2[@]}" | sort -n ))
+echo "sorted triplet : ${sortedtriplet[@]}"
+
+# display winner
+maxtriplet=${dictionary2[HHH]}
+maxtripletletkey=HHH
+
+for k in "${!dictionary2[@]}"
+do
+	if [[ "$maxtriplet" -lt "${dictionary2[$k]}" ]]
+	then
+		maxtriplet="${dictionary2[$k]}"
+		maxtripletkey="$k"
+	elif [[ "$maxtriplet" -eq "${dictionary2[$k]}" ]]
+        then
+                maxtripletkey="$maxtripletkey + $k"
+        fi
+done
+echo "WINNER for TRIPLET Combination is $maxtripletkey who won $maxtriplet times."
+
